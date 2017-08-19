@@ -1,3 +1,12 @@
+"""
+Convert Catalogs to Pandas format for future usages.
+Notes:
+    1. Oklahoma catalog (OK) is used to generate event windows (positive
+    detections)
+    2. Benz catalog is more complete and used to generate noise windows (
+    negative detections)
+"""
+
 import numpy as np
 import pandas as pd
 from obspy import UTCDateTime
@@ -51,10 +60,10 @@ def load_Benz_catalog(src, dst=None):
 
 
 if __name__ == '__main__':
-    cat_file_OK = '../data/catalogs/OK_2014-2015-2016.csv'
+    cat_file_OK = 'data/catalogs/OK_2014-2015-2016.csv'
     cat_OK = load_OK_catalog(cat_file_OK, 'tmp/catalog/OK.csv')
     print(cat_OK)
 
-    cat_file_Benz = '../data/catalogs/Benz_catalog.csv'
+    cat_file_Benz = 'data/catalogs/Benz_catalog.csv'
     cat_Benz = load_Benz_catalog(cat_file_Benz, 'tmp/catalog/Benz.csv')
     print(cat_Benz)
