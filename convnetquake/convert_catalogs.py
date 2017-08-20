@@ -10,6 +10,7 @@ Notes:
 import numpy as np
 import pandas as pd
 from obspy import UTCDateTime
+from convnetquake.aux_catalog import filter_catalog_time, filter_catalog_space
 
 
 def load_OK_catalog(src, dst=None):
@@ -26,20 +27,26 @@ def load_OK_catalog(src, dst=None):
     err_lon = src_cat['err_lon']  # in km
     err_depth = src_cat['err_depth']  # in km
 
-    df = pd.DataFrame({
+    cat = pd.DataFrame({
         'utc_timestamp': utc_timestamp,
-        'label': label,
         'latitude': latitude,
         'longitude': longitude,
         'depth': depth,
-        'err_lat': err_lat,
-        'err_lon': err_lon,
-        'err_depth': err_depth})
+    })
+
+    # Filter the events in cat to keep the events near Guthrie
+    cat = filter_catalog_time(cat,
+                              [UTCDateTime(2014, 2, 14, 0, 0),
+                               UTCDateTime(2017, 1, 1, 0, 0)])
+
+    cat = filter_catalog_space(cat,
+                               [-97.6, -97.2],
+                               [35.7, 36])
 
     if dst:
-        df.to_csv(dst)
+        cat.to_csv(dst)
 
-    return df
+    return cat
 
 
 def load_Benz_catalog(src, dst=None):

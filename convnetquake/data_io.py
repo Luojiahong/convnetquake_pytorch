@@ -8,7 +8,7 @@ import pandas as pd
 def load_stream(file):
     st = read(file)
 
-    return st.merge()
+    return st.merge(method=1, fill_value=0)
 
 
 def load_catalog(file):
