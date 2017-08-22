@@ -3,9 +3,14 @@ Script to cut event windows from continuous mseed files according to OK
 catalog and store each window in separated file in hdf5 format.
 """
 import os
+import sys
 import numpy as np
 from obspy import UTCDateTime
 import deepdish as dd
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.dirname(this_dir))
+
 from convnetquake.data_io import load_stream, load_catalog
 from convnetquake.aux_catalog import filter_catalog_time
 from convnetquake.aux_stream import preprocess_stream

@@ -1,8 +1,14 @@
+import os
+import sys
 import numpy as np
-from convnetquake.data_io import load_catalog
 from matplotlib import pyplot as plt
 from sklearn import cluster
 import seaborn
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.dirname(this_dir))
+
+from convnetquake.data_io import load_catalog
 
 
 def cluster_event(cat, dst=None, viz=False):

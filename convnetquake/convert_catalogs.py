@@ -6,10 +6,15 @@ Notes:
     2. Benz catalog is more complete and used to generate noise windows (
     negative detections)
 """
-
+import os
+import sys
 import numpy as np
 import pandas as pd
 from obspy import UTCDateTime
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.dirname(this_dir))
+
 from convnetquake.aux_catalog import filter_catalog_time, filter_catalog_space
 
 
