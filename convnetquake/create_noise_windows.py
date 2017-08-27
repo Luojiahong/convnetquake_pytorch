@@ -11,7 +11,6 @@ sys.path.append(os.path.dirname(this_dir))
 
 from convnetquake.data_io import load_stream, load_catalog
 from convnetquake.aux_catalog import filter_catalog_time
-from convnetquake.aux_stream import preprocess_stream
 
 if __name__ == '__main__':
     # ============================ Parse Args ==============================
@@ -56,9 +55,6 @@ if __name__ == '__main__':
 
     # Load stream
     st = load_stream('/'.join([root, file]))
-
-    # Preprocess stream
-    st = preprocess_stream(st)
 
     for st_window in st.slide(window_length=10, step=10):
         # Window start and end time
