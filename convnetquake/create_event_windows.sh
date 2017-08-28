@@ -2,8 +2,7 @@
 
 START=$(date +%s.%N)
 
-START=$(date +%s.%N)
-N = 3
+N=3
 
 for i in $(seq $N $N 36)
 do
@@ -18,5 +17,5 @@ DIFF=$(echo "$END - $START" | bc)
     echo From: gatechzhu@gmail.com
     echo Subject: Work Complete!
     echo
-    echo The script finished in $DIFF seconds
+    echo The script create_event_windows finished in $DIFF seconds
 } | ssmtp -vvv lijunzhu90@gmail.com
