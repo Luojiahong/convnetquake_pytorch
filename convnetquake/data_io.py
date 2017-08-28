@@ -10,7 +10,7 @@ from deepdish.io import load
 
 def load_stream(file):
     st = read(file)
-    st.detrend('constant')
+    st.detrend('spline', order=3, dspline=1000)
     st.normalize()
 
     return st.merge(method=1, fill_value=0)

@@ -2,9 +2,12 @@
 
 START=$(date +%s.%N)
 
-for i in $(seq 3 3 36)
+START=$(date +%s.%N)
+N = 3
+
+for i in $(seq $N $N 36)
 do
-    ls data/streams/*029* | head -n $i | tail -n 4 | nohup parallel python create_event_windows.py -c tmp/catalog/OK_clustered.csv -d tmp/train/events -s {}
+    ls data/streams/*029* | head -n $i | tail -n $N | nohup parallel python create_event_windows.py -c tmp/catalog/OK_clustered.csv -d tmp/train/events -s {}
 done
 
 END=$(date +%s.%N)

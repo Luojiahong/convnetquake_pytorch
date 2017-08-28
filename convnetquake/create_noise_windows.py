@@ -30,7 +30,9 @@ if __name__ == '__main__':
     # Assign args
     root, file = os.path.split(args['src'])
     cat_file = args['catalog']
-    print(root, file, cat_file)
+    tmp_root, tmp_file = os.path.split(args['dst'])
+    dst_dir = "/".join((tmp_root, tmp_file))
+    print(root, file, cat_file, dst_dir)
 
     sta, time = file.split('.')[0].split('_')
     mn, yr = time.split('-')
@@ -61,22 +63,21 @@ if __name__ == '__main__':
         window_start_time = st_window[0].stats.starttime
         window_end_time = st_window[0].stats.endtime
 
+        dst_file = "_".join(["/".join((dst_dir, 'event')), str(sta),
+                             str(UTCDateTime(window_start_time))]) + '.h5'
+
         # Remove data before 2/15/2014
         if window_start_time < UTCDateTime(2014, 2, 15, 0, 0):
             continue
 
         # search catalog
         filtered_cat = filter_catalog_time(cat,
-                                           [window_start_time - 10,
-                                            window_end_time + 10])
+                                           [window_start_time - 60,
+                                            window_end_time + 60])
         if filtered_cat.empty:  # No event
             x_noise = st_window[0].data[:1000]
             y_noise = st_window[1].data[:1000]
             z_noise = st_window[2].data[:1000]
             noise_data = np.vstack((x_noise, y_noise, z_noise))
 
-            dst_file = "_".join(['tmp/train/noises/noise',
-                                 str(sta),
-                                 str(UTCDateTime(window_start_time))
-                                 ]) + '.h5'
             dd.io.save(dst_file, (-1, noise_data))

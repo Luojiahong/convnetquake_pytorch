@@ -46,7 +46,7 @@ if __name__ == '__main__':
     cat_file = args['catalog']
     tmp_root, tmp_file = os.path.split(args['dst'])
     dst_dir = "/".join((tmp_root, tmp_file))
-    print(root, file, cat_file)
+    print(root, file, cat_file, dst_dir)
 
     # Open catalog
     cat = load_catalog(cat_file)
@@ -76,9 +76,6 @@ if __name__ == '__main__':
                                           (-97.454860, 35.796570, 0.333),
                                           5.0)
 
-        # origin time + travel time - pre-event time (1 sec)
-        start_time = UTCDateTime(event_time) + travel_time - 1
-        end_time = start_time + 10
         st_event = st.slice(start_time, end_time)
 
         # Skip incomplete windows
